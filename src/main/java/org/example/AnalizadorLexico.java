@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.token.Simbolo;
-import org.example.token.Token;
+import org.example.Simbolo;
+import org.example.Token;
 
 import java.io.IOException;
 import java.io.StringReader;

@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.token.Simbolo;
+import org.example.Simbolo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

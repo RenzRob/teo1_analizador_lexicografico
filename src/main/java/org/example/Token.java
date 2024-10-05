@@ -1,4 +1,4 @@
-package org.example.token;
+package org.example;
 
 public enum Token {
     ID,

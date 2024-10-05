@@ -32,6 +32,7 @@
   </dependencies>
 
   <build>
+    <!--
     <plugins>
       <plugin>
         <groupId>de.jflex</groupId>
@@ -46,11 +47,6 @@
         </executions>
       </plugin>
     </plugins>
-
-    <resources>
-      <resource>
-        <directory>${project.basedir}/src/main/jars</directory>
-      </resource>
-    </resources>
+    -->
   </build>
 </project>

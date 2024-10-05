@@ -2,12 +2,12 @@ package org.example;
 
 import java_cup.runtime.*;
 import java.util.*;
-import org.example.token.*;
+import org.example.*;
 
 %%
 
 %public
-%class Lexic
+%class Lexico
 %line
 %column
 %char

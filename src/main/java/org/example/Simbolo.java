@@ -1,4 +1,6 @@
-package org.example.token;
+package org.example;
+
+import org.example.Token;
 
 public class Simbolo {
     private final Token token;

@@ -4,7 +4,7 @@
 
 package org.example;
 
-import org.example.token.*;
+import java_cup.runtime.*;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
