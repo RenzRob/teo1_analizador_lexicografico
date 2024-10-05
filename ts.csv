@@ -1,0 +1,4 @@
+Nombre,Token,Tipo,Valor,Length
+a_1,ID,null,a_1,null
+::=,OP_ASIGNACION,null,::=,null
+_35,CTE_E,null,35,null

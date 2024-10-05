@@ -1,0 +1,19 @@
+
+a_1::=35
+
+a_2::="pepe"
+
+a_3::=0b011
+
+while (contador < 123 ) {
+	contador ::= contador + 1 ;
+    contador2 += 1.5;
+    contador3 += .05
+
+	//* esto es un comentario *//
+}
+
+#
+
+I&!
+
