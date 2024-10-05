@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.token.Simbolo;
-import org.example.token.TokenConstant;
+import org.example.token.Token;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -21,7 +21,7 @@ public class AnalizadorLexico {
 
             Simbolo simbolo = lexic.yylex();
 
-            while (!simbolo.getToken().equals(TokenConstant.EOF)){
+            while (!simbolo.getToken().equals(Token.EOF)){
                 this.simbolos.add(simbolo);
 
                 try {

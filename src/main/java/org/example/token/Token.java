@@ -1,6 +1,6 @@
 package org.example.token;
 
-public enum TokenConstant {
+public enum Token {
     ID,
     CTE_STR,
     CTE_F,

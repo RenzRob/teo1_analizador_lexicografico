@@ -1,14 +1,14 @@
 package org.example.token;
 
 public class Simbolo {
-    private TokenConstant token;
+    private Token token;
     private String nombre;
     private String tipo;
     private String valor;
     private Integer length;
     private Boolean addSymbolsTable;
 
-    public Simbolo(TokenConstant token, String nombre, String tipo, String valor, Integer length, Boolean addSymbolsTable) {
+    public Simbolo(Token token, String nombre, String tipo, String valor, Integer length, Boolean addSymbolsTable) {
         this.token = token;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -17,11 +17,11 @@ public class Simbolo {
         this.addSymbolsTable = addSymbolsTable;
     }
 
-    public TokenConstant getToken() {
+    public Token getToken() {
         return token;
     }
 
-    public void setToken(TokenConstant token) {
+    public void setToken(Token token) {
         this.token = token;
     }
 
