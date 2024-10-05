@@ -33,7 +33,7 @@ ESPACIO = [ \t\f\n\r\n]+
 
 %{
     private Simbolo rangoEnteroAceptable(String value){
-        int i = Integer.valueOf(value);
+        int i = Integer.parseInt(value);
 
         if (i >= -32768 && i <= 32767){
             return new Simbolo(Token.CTE_E, "_"+value, null, value, null, true);

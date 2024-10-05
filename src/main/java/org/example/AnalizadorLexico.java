@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnalizadorLexico {
-    private List<Simbolo> simbolos = new ArrayList<>();
-    private List<String> errors = new ArrayList<>();
+    private final List<Simbolo> simbolos = new ArrayList<>();
+    private final List<String> errors = new ArrayList<>();
 
     public void analyze( String code ) {
         simbolos.clear();
