@@ -17,15 +17,15 @@ public class AnalizadorLexico {
         errors.clear();
 
         try {
-            Lexic lexic = new Lexic(new StringReader(code));
+            Lexico lexico = new Lexico(new StringReader(code));
 
-            Simbolo simbolo = lexic.yylex();
+            Simbolo simbolo = lexico.yylex();
 
             while (!simbolo.getToken().equals(Token.EOF)){
                 this.simbolos.add(simbolo);
 
                 try {
-                    simbolo = lexic.yylex();
+                    simbolo = lexico.yylex();
                 }catch (Error e){
                     this.errors.add(e.getMessage());
                 }

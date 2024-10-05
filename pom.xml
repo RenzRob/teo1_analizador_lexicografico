@@ -21,6 +21,14 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.vbmacher</groupId>
+      <artifactId>java-cup</artifactId>
+      <version>11b-20160615-1</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
@@ -38,5 +46,11 @@
         </executions>
       </plugin>
     </plugins>
+
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/jars</directory>
+      </resource>
+    </resources>
   </build>
 </project>
