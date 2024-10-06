@@ -26,4 +26,4 @@ java -jar target/testing2-1.0-SNAPSHOT.jar
 
 ### Archivos extra:
 - `prueba.txt`: Archivo de prueba que contiene el codigo con el cual se realizaron pruebas del programa.
-- `ts.csv`: Lo genera la aplicacion luego que el usuario toque el boton "Compilar".
+- `ts.csv`: Tabla de simbolos. Lo genera la aplicacion luego que el usuario toque el boton "Compilar".
