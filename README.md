@@ -4,7 +4,7 @@
 
 #### Opcion 1: Jar previamente compilado
 ```
-    java -jar main.jar
+    java -jar app.jar
 ```
 
 #### Opcion 2: Compilar y ejecutar

@@ -4,6 +4,7 @@ a_1,ID,null,a_1,null
 _35,CTE_E,null,35,null
 a_2,ID,null,a_2,null
 ::=,OP_ASIGNACION,null,::=,null
+_pepe,CTE_STR,null,"pepe",6
 a_3,ID,null,a_3,null
 ::=,OP_ASIGNACION,null,::=,null
 0b011,CTE_B,null,3,null
