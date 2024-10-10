@@ -21,11 +21,13 @@ public class AnalizadorLexico {
 
             Simbolo simbolo = lexico.yylex();
 
-            while (!simbolo.getToken().equals(Token.EOF)){
-                this.simbolos.add(simbolo);
+            this.simbolos.add(simbolo);
 
+            while (!simbolo.getToken().equals(Token.EOF)){
                 try {
                     simbolo = lexico.yylex();
+
+                    this.simbolos.add(simbolo);
                 }catch (Error e){
                     this.errors.add(e.getMessage());
                 }

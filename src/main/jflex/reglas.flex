@@ -39,7 +39,7 @@ ESPACIO = [ \t\f\n\r\n]+
             return new Simbolo(Token.CTE_E, "_"+value, null, value, null, true);
         }
 
-        throw new Error("Constante entera fuera de rango [-32768, 32767]: " + value);
+        throw new Error("["+ yyline + ":" + yycolumn + "] - Constante entera fuera de rango [-32768, 32767]: " + value);
     }
 
     private Simbolo rangoFloatAceptable(String value){
@@ -49,7 +49,7 @@ ESPACIO = [ \t\f\n\r\n]+
             return new Simbolo(Token.CTE_F, "_"+value, null, value, null, true);
         }
 
-        throw new Error("Constante float fuera de rango [-2147483648, 2147483647]: " + value);
+        throw new Error("["+ yyline + ":" + yycolumn + "] - Constante float fuera de rango [-2147483648, 2147483647]: " + value);
     }
 
     private Simbolo largoCadenaAceptable(String value){
@@ -59,7 +59,7 @@ ESPACIO = [ \t\f\n\r\n]+
             return new Simbolo(Token.CTE_STR, name, null, value, value.length(), true);
         }
 
-        throw new Error("Constante '" + value + "'" + " muy larga. Max 30 caracteres");
+        throw new Error("["+ yyline + ":" + yycolumn + "] - Constante string '" + value + "'" + " muy larga. Max 30 caracteres");
     }
 %}
 
@@ -133,4 +133,4 @@ ESPACIO = [ \t\f\n\r\n]+
     {ESPACIO}       { /* Se ignoran */ }
 }
 
-[^]  {throw new Error("No se encontro un token para el lexema: " + yytext());}
+[^]  {throw new Error("["+ yyline + ":" + yycolumn + "] - No se encontro un token para el lexema: " + yytext());}

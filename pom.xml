@@ -55,9 +55,8 @@
           </archive>
         </configuration>
       </plugin>
-    </plugins>
-    <!--
-    <plugins>
+
+      <!--
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
@@ -70,7 +69,7 @@
           </execution>
         </executions>
       </plugin>
+      -->
     </plugins>
-    -->
   </build>
 </project>

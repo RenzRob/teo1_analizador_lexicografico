@@ -4,8 +4,6 @@
 
 package org.example;
 
-import java_cup.runtime.*;
-
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
@@ -388,7 +386,7 @@ public class Lexico {
             return new Simbolo(Token.CTE_E, "_"+value, null, value, null, true);
         }
 
-        throw new Error("Constante entera fuera de rango [-32768, 32767]: " + value);
+        throw new Error("["+ yyline + ":" + yycolumn + "] - Constante entera fuera de rango [-32768, 32767]: " + value);
     }
 
     private Simbolo rangoFloatAceptable(String value){
@@ -398,7 +396,7 @@ public class Lexico {
             return new Simbolo(Token.CTE_F, "_"+value, null, value, null, true);
         }
 
-        throw new Error("Constante float fuera de rango [-2147483648, 2147483647]: " + value);
+        throw new Error("["+ yyline + ":" + yycolumn + "] - Constante float fuera de rango [-2147483648, 2147483647]: " + value);
     }
 
     private Simbolo largoCadenaAceptable(String value){
@@ -408,7 +406,7 @@ public class Lexico {
             return new Simbolo(Token.CTE_STR, name, null, value, value.length(), true);
         }
 
-        throw new Error("Constante '" + value + "'" + " muy larga. Max 30 caracteres");
+        throw new Error("["+ yyline + ":" + yycolumn + "] - Constante string '" + value + "'" + " muy larga. Max 30 caracteres");
     }
 
 
@@ -813,7 +811,7 @@ public class Lexico {
             // fall through
           case 42: break;
           case 2:
-            { throw new Error("No se encontro un token para el lexema: " + yytext());
+            { throw new Error("["+ yyline + ":" + yycolumn + "] - No se encontro un token para el lexema: " + yytext());
             }
             // fall through
           case 43: break;
