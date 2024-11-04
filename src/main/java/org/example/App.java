@@ -10,5 +10,6 @@ public class App
             AnalizadorLexicoGUI gui = new AnalizadorLexicoGUI();
             gui.setVisible(true);
         });
+
     }
 }

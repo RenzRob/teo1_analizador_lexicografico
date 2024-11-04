@@ -6,10 +6,17 @@ public enum Token {
     CTE_F,
     CTE_E,
     CTE_B,
+    CTE_BOOL,
+
+    TYPE_FLOAT,
+    TYPE_INT,
+    TYPE_BOOL,
+    TYPE_STRING,
 
     OP_SUMA,
     OP_RESTA,
-    OP_MAS_IGUAL,
+    OP_MULTIPLICACION,
+    OP_DIVISION,
 
     OPL_AND,
     OPL_OR,
@@ -27,13 +34,11 @@ public enum Token {
 
     IF,
     ELSE,
-    THEN,
     WHILE,
-    DECLARE,
-    ENDDECLARE,
-    PROGRAM,
-    ENDPROGRAM,
-    SECTION,
+    INI_DECLARE,
+    END_DECLARE,
+    INI_PROGRAM,
+    END_PROGRAM,
     FILTER,
     WRITE,
 

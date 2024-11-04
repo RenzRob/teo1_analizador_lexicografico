@@ -1,18 +1,32 @@
+program.section
 
-a_1::=35
+declare.section
+    [a1, b1] := [FLOAT, INT]
+    [b2, c3, c4] := [FLOAT, INT, STRING]
+enddeclare.section
 
-a_2::="pepe"
+a1 ::= 100
+b1 ::= 200
+b2 ::= 300
+c3 ::= 400
+c4 ::= "Renzo"
 
-a_3::=0b011
+while (a1 <= b1 && (b2 == c3)){
+    write "Iniciando bucle"
 
-while (contador < 123 ) {
-	contador ::= contador + 1 ;
-    contador2 += 1.5;
-    contador3 += .05
+    declare.section
+        [z1, z2] := [INT, INT]
+    enddeclare.section
 
-	//* esto es un comentario *//
+    if (c4 == "Renzo"){
+
+    }
+
+    //* Esto es un comentario porque esta es una funcionalidad que fue eliminada
+    if (z1 <= z2){
+
+    }
+    *//
 }
 
-#
-°#@@
-
+endprogram.section

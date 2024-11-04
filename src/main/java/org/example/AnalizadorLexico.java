@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.Simbolo;
 import org.example.Token;
 
 import java.io.IOException;
@@ -27,7 +26,16 @@ public class AnalizadorLexico {
                 try {
                     simbolo = lexico.yylex();
 
-                    this.simbolos.add(simbolo);
+                    boolean already_exists = false;
+                    for (Simbolo s: this.simbolos){
+                        if (s.getNombre().equals(simbolo.getNombre())){
+                            already_exists = true;
+                            break;
+                        }
+                    }
+
+                    if (!already_exists) this.simbolos.add(simbolo);
+
                 }catch (Error e){
                     this.errors.add(e.getMessage());
                 }

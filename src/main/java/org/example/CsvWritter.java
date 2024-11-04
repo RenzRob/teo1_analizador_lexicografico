@@ -14,6 +14,8 @@ public class CsvWritter {
             bw.newLine();
 
             for (Simbolo simbolo : listaSimbolos) {
+                if (!simbolo.getAddSymbolsTable()) continue;
+
                 bw.write( simbolo.getNombre()+ "," +
                         simbolo.getToken() + "," +
                         simbolo.getTipo() + "," +

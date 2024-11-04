@@ -13,7 +13,6 @@ public class AnalizadorLexicoGUI extends JFrame {
     private JButton btnCargarArchivo, btnCompilar;
     private JTable tableResultados;
     private JTextArea textAreaErrores;
-    private JTextArea textAreaAllTokens;
 
     private AnalizadorLexico analizadorLexico;
 
@@ -45,11 +44,6 @@ public class AnalizadorLexicoGUI extends JFrame {
         textAreaErrores.setFont(new Font("Monospaced", Font.PLAIN, 14));
         JScrollPane scrollPaneErrores = new JScrollPane(textAreaErrores);
 
-        textAreaAllTokens = new JTextArea();
-        textAreaAllTokens.setEditable(false);
-        textAreaAllTokens.setFont(new Font("Monospaced", Font.PLAIN, 14));
-        JScrollPane scrollAllTokens = new JScrollPane(textAreaAllTokens);
-
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnCargarArchivo);
         panelBotones.add(btnCompilar);
@@ -59,13 +53,12 @@ public class AnalizadorLexicoGUI extends JFrame {
 
         JPanel panelPrincipal = new JPanel(new GridLayout(1, 2));
         JPanel panelIzquierda = new JPanel(new GridLayout(1, 1));
-        JPanel panelDerecha = new JPanel(new GridLayout(3, 1));
+        JPanel panelDerecha = new JPanel(new GridLayout(2, 1));
 
         panelIzquierda.add(scrollPaneCodigo);
 
         panelDerecha.add(scrollPaneTablaTokens);
         panelDerecha.add(scrollPaneErrores);
-        panelDerecha.add(scrollAllTokens);
 
         panelPrincipal.add(panelIzquierda);
         panelPrincipal.add(panelDerecha);
@@ -96,7 +89,6 @@ public class AnalizadorLexicoGUI extends JFrame {
 
         model.setRowCount(0);
         textAreaErrores.setText("");
-        textAreaAllTokens.setText("");
 
         this.analizadorLexico.analyze(codigo);
 
@@ -109,7 +101,6 @@ public class AnalizadorLexicoGUI extends JFrame {
                 Object[] fila = {simbolo.getNombre(), simbolo.getToken(), simbolo.getTipo(), simbolo.getValor(), simbolo.getLength()};
                 model.addRow(fila);
             }
-            textAreaAllTokens.append(String.format("%s --> %s\n", simbolo.getToken(), simbolo.getValor()));
         }
 
         if (errores.isEmpty()) {
