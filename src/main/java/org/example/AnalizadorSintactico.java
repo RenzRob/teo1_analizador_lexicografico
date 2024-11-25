@@ -63,7 +63,7 @@ public class AnalizadorSintactico {
                 this.simbolos.add(simbolo);
             }
         }catch (Exception e){
-            new RuntimeException("Unexpected error: " + e.getMessage(), e);
+            throw new RuntimeException("Unexpected error: " + e.getMessage(), e);
         }
     }
 
