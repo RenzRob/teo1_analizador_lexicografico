@@ -4,16 +4,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
-import java.util.List;
 
 public class AnalizadorSintacticoGUI extends JFrame {
     private JTextArea textArea;
-    private JButton btnCargarArchivo, btnCompilar;
-    private JTable tableResultados;
     private JTextArea textAreaErrores;
     private JTextArea textAreaReglas;
 
-    private AnalizadorSintactico analizadorSintactico;
+    private final AnalizadorSintactico analizadorSintactico;
 
     public AnalizadorSintacticoGUI() {
         this.analizadorSintactico = new AnalizadorSintactico();
@@ -30,12 +27,12 @@ public class AnalizadorSintacticoGUI extends JFrame {
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         JScrollPane scrollPaneCodigo = new JScrollPane(textArea);
 
-        btnCargarArchivo = new JButton("Cargar Archivo");
-        btnCompilar = new JButton("Compilar");
+        JButton btnCargarArchivo = new JButton("Cargar Archivo");
+        JButton btnCompilar = new JButton("Compilar");
 
         String[] columnas = {"Nombre", "Token", "Tipo", "Valor", "Long"};
         DefaultTableModel model = new DefaultTableModel(columnas, 0);
-        tableResultados = new JTable(model);
+        JTable tableResultados = new JTable(model);
         JScrollPane scrollPaneTablaTokens = new JScrollPane(tableResultados);
 
         textAreaErrores = new JTextArea();
