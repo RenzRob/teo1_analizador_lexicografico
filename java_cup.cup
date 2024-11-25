@@ -1,0 +1,165 @@
+package org.example;
+
+// Importar librerias necesarias
+import java_cup.runtime.Symbol;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+
+import org.example.*;
+
+parser code
+{:
+    public List<String> reglas = new ArrayList<>();
+    public List<String> errors = new ArrayList<>();
+
+    public Map<String, String> idsDataTypeMapping = new HashMap<>();
+
+        public void report_error(String mensaje, Object info) {
+            if (info instanceof Symbol) {
+                Symbol s = (Symbol) info;
+                errors.add("["+ s.left + ":" + s.right + "] - " + mensaje + " - " + s.value);
+            }else{
+                errors.add(mensaje);
+            }
+        }
+
+        public void report_fatal_error(String mensaje, Object info) {
+            if (info instanceof Symbol) {
+                Symbol s = (Symbol) info;
+                errors.add("["+ s.left + ":" + s.right + "] - " + mensaje + " after '" + s.value + "'");
+            }else{
+                errors.add(mensaje);
+            }
+        }
+
+    public void syntax_error(Symbol s){
+        String errMsg = "["+ s.left + ":" + s.right + "] - Token '" + s.value + "' no esperado.";
+        errors.add(errMsg);
+    }
+
+    public void addDeclarationToDataTypeMapping(String declaration){
+        String[] ids = declaration.split(";,")[0].split(";");
+        String[] types = declaration.split(";,")[1].split(",");
+
+        for (int i = 0; i < ids.length; i++) {
+            idsDataTypeMapping.put(ids[i], types[i]);
+        }
+    }
+
+    public void idIsAlreadyDeclared(String id){
+        if(!idsDataTypeMapping.containsKey(id)){
+            errors.add("Declaracion no encontrada para el ID '" + id + "'.");
+        }
+    }
+:}
+
+// Declaracion de terminales
+terminal String ID, OP_ASIGNACION, CTE_E, CTE_B, CTE_F, CTE_STR;
+terminal String OP_SUMA, OP_RESTA, OP_MULTIPLICACION, OP_DIVISION;
+terminal String WHILE, OPL_AND, OPL_OR, OPL_NOT;
+terminal String OP_MENOR, OP_MAYOR, OP_MENOR_IG, OP_MAYOR_IG, OP_IGUAL, OP_DIST;
+terminal String IF, ELSE, A_LLAVE, C_LLAVE, INI_DECLARE, END_DECLARE;
+terminal String INI_PROGRAM, END_PROGRAM, A_CORCHETE, C_CORCHETE;
+terminal String OP_DECLARACION, COMA, TYPE_FLOAT, TYPE_INT, TYPE_STRING;
+terminal String WRITE, FILTER, A_PARENT, C_PARENT, GUION_BAJO, PYC;
+
+// Declaracion de no terminales
+non terminal String S, write_program, lista_sentencias, sentencia;
+non terminal String asignacion, expresion, termino, factor;
+non terminal String repeticion, condicion, comparacion, comparador;
+non terminal String decision, if_stmt, else_stmt, declaraciones;
+non terminal String lista_declaraciones, declaracion, id_y_tipo, tipo;
+non terminal String write, filter, condicion_filter, comparacion_f, lista_ids;
+
+// Definicion de la gramática
+precedence left OP_SUMA, OP_RESTA;
+precedence left OP_MULTIPLICACION, OP_DIVISION;
+
+S ::= declaraciones INI_PROGRAM lista_sentencias END_PROGRAM {:reglas.add("[Regla] S ::= declaraciones INI_PROGRAM lista_sentencias END_PROGRAM");:}
+     | write_program {:reglas.add("[Regla] S ::= write_program");:};
+
+write_program ::= WRITE CTE_STR PYC write_program {:reglas.add("[Regla] WRITE CTE_STR PYC write_program");:}
+                | WRITE CTE_STR PYC {:reglas.add("[Regla] WRITE CTE_STR PYC");:};
+
+lista_sentencias ::= sentencia PYC lista_sentencias
+                   | sentencia PYC;
+
+sentencia ::= asignacion
+            | repeticion
+            | decision
+            | write {:reglas.add("[Regla] sentencia ::= write");:};
+
+asignacion ::= ID:id OP_ASIGNACION expresion {:idIsAlreadyDeclared(id); reglas.add("[Regla] asignacion ::= ID OP_ASIGNACION expresion");:}
+             | ID:id OP_ASIGNACION CTE_STR {:idIsAlreadyDeclared(id); reglas.add("[Regla] asignacion ::= ID OP_ASIGNACION CTE_STR");:};
+
+expresion ::= expresion OP_SUMA termino
+            | expresion OP_RESTA termino
+            | termino;
+
+termino ::= termino OP_MULTIPLICACION factor
+          | termino OP_DIVISION factor
+          | factor;
+
+factor ::= ID
+         | CTE_E
+         | CTE_F
+         | A_PARENT expresion C_PARENT
+         | filter;
+
+repeticion ::= WHILE A_PARENT condicion C_PARENT A_LLAVE lista_sentencias C_LLAVE {:reglas.add("[Regla] repeticion ::= WHILE A_PARENT condicion C_PARENT A_LLAVE lista_sentencias C_LLAVE");:};
+
+condicion ::= comparacion OPL_AND comparacion {:reglas.add("[Regla] condicion ::= comparacion OPL_AND comparacion");:}
+            | comparacion OPL_OR comparacion {:reglas.add("[Regla] condicion ::= comparacion OPL_OR comparacion");:}
+            | comparacion {:reglas.add("[Regla] condicion ::= comparacion");:}
+            | OPL_NOT comparacion {:reglas.add("[Regla] condicion ::= OPL_NOT comparacion");:};
+
+comparacion ::= expresion comparador expresion;
+
+comparador ::= OP_MAYOR
+             | OP_MAYOR_IG
+             | OP_MENOR
+             | OP_MENOR_IG
+             | OP_IGUAL
+             | OP_DIST;
+
+decision ::= if_stmt
+           | if_stmt else_stmt {:reglas.add("[Regla] decision ::= if_stmt else_stmt");:};
+
+if_stmt ::= IF A_PARENT condicion C_PARENT A_LLAVE lista_sentencias C_LLAVE {:reglas.add("[Regla] if_stmt ::= IF A_PARENT condicion C_PARENT A_LLAVE lista_sentencias C_LLAVE");:};
+
+else_stmt ::= ELSE A_LLAVE lista_sentencias C_LLAVE {:reglas.add("[Regla] else_stmt ::= ELSE A_LLAVE lista_sentencias C_LLAVE");:};
+
+declaraciones ::= INI_DECLARE lista_declaraciones END_DECLARE {:reglas.add("[Regla] declaraciones ::= INI_DECLARE lista_declaraciones END_DECLARE");:}
+                | INI_DECLARE END_DECLARE {:reglas.add("[Regla] declaraciones ::= INI_DECLARE lista_declaraciones END_DECLARE");:};
+
+lista_declaraciones ::= declaracion:dec PYC lista_declaraciones {:addDeclarationToDataTypeMapping(dec);:}
+                      | declaracion:dec PYC {:addDeclarationToDataTypeMapping(dec);:};
+
+declaracion ::= A_CORCHETE id_y_tipo:value C_CORCHETE {:RESULT=value; reglas.add("[Regla] declaracion ::= A_CORCHETE id_y_tipo C_CORCHETE");:};
+
+id_y_tipo ::= ID:id COMA id_y_tipo:next COMA tipo:type {:RESULT=id+";"+next+","+type;:}
+            | ID:id C_CORCHETE OP_DECLARACION A_CORCHETE tipo:type {:RESULT=id+";"+","+type;:};
+
+tipo ::= TYPE_INT:type {:RESULT=type;:}
+       | TYPE_FLOAT:type {:RESULT=type;:}
+       | TYPE_STRING:type {:RESULT=type;:};
+
+write ::= WRITE CTE_STR
+        | WRITE CTE_F
+        | WRITE CTE_E
+        | WRITE ID;
+
+filter ::= FILTER A_PARENT condicion_filter COMA A_CORCHETE lista_ids C_CORCHETE C_PARENT {:reglas.add("[Regla] filter ::= FILTER A_PARENT condicion_filter COMA A_CORCHETE lista_ids C_CORCHETE C_PARENT");:};
+
+condicion_filter ::= comparacion_f OPL_AND comparacion_f
+                   | comparacion_f OPL_OR comparacion_f
+                   | comparacion_f
+                   | OPL_NOT comparacion_f;
+
+comparacion_f ::= GUION_BAJO comparador expresion;
+
+lista_ids ::= ID COMA lista_ids
+            | ID;

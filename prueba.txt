@@ -1,18 +1,33 @@
+declare.section
+    [a1, b1] := [FLOAT, INT];
+    [b2, c3, c4] := [FLOAT, INT, STRING];
+enddeclare.section
 
-a_1::=35
+program.section
 
-a_2::="pepe"
+a1 ::= 123123213123;
+b1 ::= 200;
+b2 ::= 300;
+c3 ::= 100;
+c4 ::= "Renzo";
 
-a_3::=0b011
+while (a1 <= filter(_ <= a1*2, [a1,b1,c1]) && b2 == c3) {
+    write "Iniciando bucle";
 
-while (contador < 123 ) {
-	contador ::= contador + 1 ;
-    contador2 += 1.5;
-    contador3 += .05
+    if (c4 == 15){
+        if (c3 >= 14){
+            a1 ::= 500;
+            write "Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles";
+        };
+    };
 
-	//* esto es un comentario *//
-}
+    write "Hola que tal";
 
-#
-°#@@
+    //* Esto es un comentario porque esta es una funcionalidad que fue eliminada
+    if (z1 <= z2){
 
+    };
+    *//
+};
+
+endprogram.section

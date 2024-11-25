@@ -1,7 +1,5 @@
 package org.example;
 
-import org.example.Simbolo;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

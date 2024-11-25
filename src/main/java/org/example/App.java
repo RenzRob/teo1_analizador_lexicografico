@@ -1,13 +1,12 @@
 package org.example;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class App
 {
-    public static void main( String[] args ) throws IOException {
+    public static void main( String[] args ) {
         SwingUtilities.invokeLater(() -> {
-            AnalizadorLexicoGUI gui = new AnalizadorLexicoGUI();
+            AnalizadorSintacticoGUI gui = new AnalizadorSintacticoGUI();
             gui.setVisible(true);
         });
     }

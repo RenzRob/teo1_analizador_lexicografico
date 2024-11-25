@@ -1,24 +1,19 @@
 package org.example;
 
-import org.example.Simbolo;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
-import java.util.List;
 
-public class AnalizadorLexicoGUI extends JFrame {
+public class AnalizadorSintacticoGUI extends JFrame {
     private JTextArea textArea;
-    private JButton btnCargarArchivo, btnCompilar;
-    private JTable tableResultados;
     private JTextArea textAreaErrores;
-    private JTextArea textAreaAllTokens;
+    private JTextArea textAreaReglas;
 
-    private AnalizadorLexico analizadorLexico;
+    private final AnalizadorSintactico analizadorSintactico;
 
-    public AnalizadorLexicoGUI() {
-        this.analizadorLexico = new AnalizadorLexico();
+    public AnalizadorSintacticoGUI() {
+        this.analizadorSintactico = new AnalizadorSintactico();
 
         setTitle("Analizador Lexicográfico - IDE");
         setSize(1200, 700);
@@ -32,12 +27,12 @@ public class AnalizadorLexicoGUI extends JFrame {
         textArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         JScrollPane scrollPaneCodigo = new JScrollPane(textArea);
 
-        btnCargarArchivo = new JButton("Cargar Archivo");
-        btnCompilar = new JButton("Compilar");
+        JButton btnCargarArchivo = new JButton("Cargar Archivo");
+        JButton btnCompilar = new JButton("Compilar");
 
         String[] columnas = {"Nombre", "Token", "Tipo", "Valor", "Long"};
         DefaultTableModel model = new DefaultTableModel(columnas, 0);
-        tableResultados = new JTable(model);
+        JTable tableResultados = new JTable(model);
         JScrollPane scrollPaneTablaTokens = new JScrollPane(tableResultados);
 
         textAreaErrores = new JTextArea();
@@ -45,10 +40,10 @@ public class AnalizadorLexicoGUI extends JFrame {
         textAreaErrores.setFont(new Font("Monospaced", Font.PLAIN, 14));
         JScrollPane scrollPaneErrores = new JScrollPane(textAreaErrores);
 
-        textAreaAllTokens = new JTextArea();
-        textAreaAllTokens.setEditable(false);
-        textAreaAllTokens.setFont(new Font("Monospaced", Font.PLAIN, 14));
-        JScrollPane scrollAllTokens = new JScrollPane(textAreaAllTokens);
+        textAreaReglas = new JTextArea();
+        textAreaReglas.setEditable(false);
+        textAreaReglas.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        JScrollPane scrollPaneReglas = new JScrollPane(textAreaReglas);
 
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnCargarArchivo);
@@ -64,8 +59,8 @@ public class AnalizadorLexicoGUI extends JFrame {
         panelIzquierda.add(scrollPaneCodigo);
 
         panelDerecha.add(scrollPaneTablaTokens);
+        panelDerecha.add(scrollPaneReglas);
         panelDerecha.add(scrollPaneErrores);
-        panelDerecha.add(scrollAllTokens);
 
         panelPrincipal.add(panelIzquierda);
         panelPrincipal.add(panelDerecha);
@@ -92,34 +87,44 @@ public class AnalizadorLexicoGUI extends JFrame {
     }
 
     private void compilarCodigo(DefaultTableModel model) {
+
         String codigo = textArea.getText();
 
         model.setRowCount(0);
         textAreaErrores.setText("");
-        textAreaAllTokens.setText("");
+        textAreaReglas.setText("");
 
-        this.analizadorLexico.analyze(codigo);
+        this.analizadorSintactico.analyze(codigo);
 
-        List<Simbolo> simbolos = this.analizadorLexico.getSimbolos();
-
-        List<String> errores = this.analizadorLexico.getErrors();
-
-        for (Simbolo simbolo : simbolos) {
-            if (simbolo.getAddSymbolsTable()){
-                Object[] fila = {simbolo.getNombre(), simbolo.getToken(), simbolo.getTipo(), simbolo.getValor(), simbolo.getLength()};
-                model.addRow(fila);
-            }
-            textAreaAllTokens.append(String.format("%s --> %s\n", simbolo.getToken(), simbolo.getValor()));
+        // Mostrar tabla de simbolos
+        for (Simbolo simbolo : this.analizadorSintactico.getSimbolos()) {
+            Object[] fila = {simbolo.getNombre(), simbolo.getToken(), simbolo.getTipo(), simbolo.getValor(), simbolo.getLength()};
+            model.addRow(fila);
         }
 
-        if (errores.isEmpty()) {
-            textAreaErrores.append("No se encontraron errores.\n");
+        // Mostrar reglas de la gramatica
+        for (String regla : this.analizadorSintactico.getReglas()){
+            textAreaReglas.append(regla + "\n");
+        }
+
+        // Mostrar errores de analizador lexico
+        if (this.analizadorSintactico.getAlErrors().isEmpty()) {
+            textAreaErrores.append("[AL] - No se encontraron errores.\n");
         } else {
-            for (String error : errores) {
-                textAreaErrores.append(error + "\n");
+            for (String error : this.analizadorSintactico.getAlErrors()) {
+                textAreaErrores.append("[AL] - " + error + "\n");
             }
         }
 
-        CsvWritter.escribirSimbolosCSV(simbolos, "ts.csv");
+        // Mostrar errores de analizador sintactico
+        if (this.analizadorSintactico.getAsErrors().isEmpty()) {
+            textAreaErrores.append("[AS] - No se encontraron errores.\n");
+        } else {
+            for (String error : this.analizadorSintactico.getAsErrors()) {
+                textAreaErrores.append("[AS] - " + error + "\n");
+            }
+        }
+
+        CsvWritter.escribirSimbolosCSV(this.analizadorSintactico.getSimbolos(), "ts.csv");
     }
 }

@@ -1,25 +1,21 @@
 package org.example;
 
-import org.example.Token;
-
 public class Simbolo {
-    private final Token token;
+    private final String token;
     private final String nombre;
     private final String tipo;
     private final String valor;
     private final Integer length;
-    private final Boolean addSymbolsTable;
 
-    public Simbolo(Token token, String nombre, String tipo, String valor, Integer length, Boolean addSymbolsTable) {
+    public Simbolo(String token, String nombre, String tipo, String valor, Integer length) {
         this.token = token;
         this.nombre = nombre;
         this.tipo = tipo;
         this.valor = valor;
         this.length = length;
-        this.addSymbolsTable = addSymbolsTable;
     }
 
-    public Token getToken() {
+    public String getToken() {
         return token;
     }
 
@@ -39,19 +35,14 @@ public class Simbolo {
         return length;
     }
 
-    public Boolean getAddSymbolsTable() {
-        return addSymbolsTable;
-    }
-
     @Override
     public String toString() {
-        return "Token{" +
-                "tokenType=" + token +
-                ", name='" + nombre + '\'' +
-                ", dataType='" + tipo + '\'' +
-                ", value='" + valor + '\'' +
+        return "Simbolo{" +
+                "token=" + token +
+                ", nombre='" + nombre + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", valor='" + valor + '\'' +
                 ", length=" + length +
-                ", addSymbolsTable=" + addSymbolsTable +
                 '}';
     }
 }
