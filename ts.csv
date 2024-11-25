@@ -10,5 +10,6 @@ _300,CTE_E,null,300,null
 _400,CTE_E,null,400,null
 _Renzo,CTE_STR,null,"Renzo",7
 _Iniciando bucle,CTE_STR,null,"Iniciando bucle",17
-z1,ID,null,z1,null
-z2,ID,null,z2,null
+c5,ID,null,c5,null
+_Robles,CTE_STR,null,"Robles",8
+_Hola Renzo Robles,CTE_STR,null,"Hola Renzo Robles",19

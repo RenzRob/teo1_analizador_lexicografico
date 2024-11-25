@@ -1,32 +1,33 @@
-program.section
-
 declare.section
-    [a1, b1] := [FLOAT, INT]
-    [b2, c3, c4] := [FLOAT, INT, STRING]
+    [a1, b1] := [FLOAT, INT];
+    [b2, c3, c4] := [FLOAT, INT, STRING];
 enddeclare.section
 
-a1 ::= 100
-b1 ::= 200
-b2 ::= 300
-c3 ::= 400
-c4 ::= "Renzo"
+program.section
 
-while (a1 <= b1 && (b2 == c3)){
-    write "Iniciando bucle"
+a1 ::= 123123213123;
+b1 ::= 200;
+b2 ::= 300;
+c3 ::= 100;
+c4 ::= "Renzo";
 
-    declare.section
-        [z1, z2] := [INT, INT]
-    enddeclare.section
+while (a1 <= filter(_ <= a1*2, [a1,b1,c1]) && b2 == c3) {
+    write "Iniciando bucle";
 
-    if (c4 == "Renzo"){
+    if (c4 == 15){
+        if (c3 >= 14){
+            a1 ::= 500;
+            write "Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles";
+        };
+    };
 
-    }
+    write "Hola que tal";
 
     //* Esto es un comentario porque esta es una funcionalidad que fue eliminada
     if (z1 <= z2){
 
-    }
+    };
     *//
-}
+};
 
 endprogram.section

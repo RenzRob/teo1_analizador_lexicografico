@@ -1,15 +1,17 @@
 package org.example;
 
 import javax.swing.*;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class App
 {
-    public static void main( String[] args ) throws IOException {
+    private static Map<Integer, String> tokenCodeMapping = new HashMap<>();
+
+    public static void main( String[] args ) throws Exception {
         SwingUtilities.invokeLater(() -> {
-            AnalizadorLexicoGUI gui = new AnalizadorLexicoGUI();
+            AnalizadorSintacticoGUI gui = new AnalizadorSintacticoGUI();
             gui.setVisible(true);
         });
-
     }
 }

@@ -1,23 +1,22 @@
 package org.example;
 
-import org.example.Simbolo;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
 import java.util.List;
 
-public class AnalizadorLexicoGUI extends JFrame {
+public class AnalizadorSintacticoGUI extends JFrame {
     private JTextArea textArea;
     private JButton btnCargarArchivo, btnCompilar;
     private JTable tableResultados;
     private JTextArea textAreaErrores;
+    private JTextArea textAreaReglas;
 
-    private AnalizadorLexico analizadorLexico;
+    private AnalizadorSintactico analizadorSintactico;
 
-    public AnalizadorLexicoGUI() {
-        this.analizadorLexico = new AnalizadorLexico();
+    public AnalizadorSintacticoGUI() {
+        this.analizadorSintactico = new AnalizadorSintactico();
 
         setTitle("Analizador Lexicográfico - IDE");
         setSize(1200, 700);
@@ -44,6 +43,11 @@ public class AnalizadorLexicoGUI extends JFrame {
         textAreaErrores.setFont(new Font("Monospaced", Font.PLAIN, 14));
         JScrollPane scrollPaneErrores = new JScrollPane(textAreaErrores);
 
+        textAreaReglas = new JTextArea();
+        textAreaReglas.setEditable(false);
+        textAreaReglas.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        JScrollPane scrollPaneReglas = new JScrollPane(textAreaReglas);
+
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnCargarArchivo);
         panelBotones.add(btnCompilar);
@@ -53,11 +57,12 @@ public class AnalizadorLexicoGUI extends JFrame {
 
         JPanel panelPrincipal = new JPanel(new GridLayout(1, 2));
         JPanel panelIzquierda = new JPanel(new GridLayout(1, 1));
-        JPanel panelDerecha = new JPanel(new GridLayout(2, 1));
+        JPanel panelDerecha = new JPanel(new GridLayout(3, 1));
 
         panelIzquierda.add(scrollPaneCodigo);
 
         panelDerecha.add(scrollPaneTablaTokens);
+        panelDerecha.add(scrollPaneReglas);
         panelDerecha.add(scrollPaneErrores);
 
         panelPrincipal.add(panelIzquierda);
@@ -85,32 +90,44 @@ public class AnalizadorLexicoGUI extends JFrame {
     }
 
     private void compilarCodigo(DefaultTableModel model) {
+
         String codigo = textArea.getText();
 
         model.setRowCount(0);
         textAreaErrores.setText("");
+        textAreaReglas.setText("");
 
-        this.analizadorLexico.analyze(codigo);
+        this.analizadorSintactico.analyze(codigo);
 
-        List<Simbolo> simbolos = this.analizadorLexico.getSimbolos();
-
-        List<String> errores = this.analizadorLexico.getErrors();
-
-        for (Simbolo simbolo : simbolos) {
-            if (simbolo.getAddSymbolsTable()){
-                Object[] fila = {simbolo.getNombre(), simbolo.getToken(), simbolo.getTipo(), simbolo.getValor(), simbolo.getLength()};
-                model.addRow(fila);
-            }
+        // Mostrar tabla de simbolos
+        for (Simbolo simbolo : this.analizadorSintactico.getSimbolos()) {
+            Object[] fila = {simbolo.getNombre(), simbolo.getToken(), simbolo.getTipo(), simbolo.getValor(), simbolo.getLength()};
+            model.addRow(fila);
         }
 
-        if (errores.isEmpty()) {
-            textAreaErrores.append("No se encontraron errores.\n");
+        // Mostrar reglas de la gramatica
+        for (String regla : this.analizadorSintactico.getReglas()){
+            textAreaReglas.append(regla + "\n");
+        }
+
+        // Mostrar errores de analizador lexico
+        if (this.analizadorSintactico.getAlErrors().isEmpty()) {
+            textAreaErrores.append("[AL] - No se encontraron errores.\n");
         } else {
-            for (String error : errores) {
-                textAreaErrores.append(error + "\n");
+            for (String error : this.analizadorSintactico.getAlErrors()) {
+                textAreaErrores.append("[AL] - " + error + "\n");
             }
         }
 
-        CsvWritter.escribirSimbolosCSV(simbolos, "ts.csv");
+        // Mostrar errores de analizador sintactico
+        if (this.analizadorSintactico.getAsErrors().isEmpty()) {
+            textAreaErrores.append("[AS] - No se encontraron errores.\n");
+        } else {
+            for (String error : this.analizadorSintactico.getAsErrors()) {
+                textAreaErrores.append("[AS] - " + error + "\n");
+            }
+        }
+
+        CsvWritter.escribirSimbolosCSV(this.analizadorSintactico.getSimbolos(), "ts.csv");
     }
 }

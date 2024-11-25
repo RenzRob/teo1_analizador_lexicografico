@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CsvWritter {
     public static void escribirSimbolosCSV(List<Simbolo> listaSimbolos, String archivoCSV) {
+        /*
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivoCSV))) {
             bw.write("Nombre,Token,Tipo,Valor,Length");
             bw.newLine();
@@ -27,5 +28,6 @@ public class CsvWritter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+         */
     }
 }
