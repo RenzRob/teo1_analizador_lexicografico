@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="testing2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/testing2_jar</output-path>
+    <root id="archive" name="testing2.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="testing2" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/vbmacher/java-cup/11b-20160615-1/java-cup-11b-20160615-1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/jcup/java-cup-11b.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
