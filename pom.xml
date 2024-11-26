@@ -28,7 +28,6 @@
       <version>11b-20160615-1</version>
     </dependency>
 
-
   </dependencies>
 
   <build>
@@ -56,6 +55,7 @@
         </configuration>
       </plugin>
 
+      <!--
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
@@ -68,6 +68,7 @@
           </execution>
         </executions>
       </plugin>
+      -->
 
     </plugins>
   </build>
