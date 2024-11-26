@@ -1,0 +1,19 @@
+Nombre,Token,Tipo,Valor,Length
+a1,ID,FLOAT,,null
+b1,ID,INT,,null
+b2,ID,FLOAT,,null
+c3,ID,INT,,null
+c4,ID,STRING,,null
+_123123213123,CTE_E,null,123123213123,null
+_200,CTE_E,null,200,null
+_300,CTE_E,null,300,null
+_100,CTE_E,null,100,null
+_Renzo,CTE_STR,null,Renzo,5
+_2,CTE_E,null,2,null
+c1,ID,null,,null
+_Iniciando bucle,CTE_STR,null,Iniciando bucle,15
+_15,CTE_E,null,15,null
+_14,CTE_E,null,14,null
+_500,CTE_E,null,500,null
+_Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles,CTE_STR,null,Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles Hola Renzo Robles,71
+_Hola que tal,CTE_STR,null,Hola que tal,12
